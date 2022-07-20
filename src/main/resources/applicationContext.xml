@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="
+                    http://www.springframework.org/schema/context
+                    http://www.springframework.org/schema/context/spring-context.xsd
+                    http://www.springframework.org/schema/beans
+                    http://www.springframework.org/schema/beans/spring-beans.xsd
+                    http://www.springframework.org/schema/tx
+                    http://www.springframework.org/schema/tx/spring-tx.xsd
+                    http://www.springframework.org/schema/aop
+                    http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!-- 加载jdbc配置文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- dataSource配置；使用的是c2p0连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 基本属性 url、user、password -->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- 配置初始化大小 -->
+        <property name="initialPoolSize" value="5"/>
+        <!-- 连接池最小空闲 -->
+        <property name="minPoolSize" value="10"/>
+        <!-- 连接池最大使用连接数量 -->
+        <property name="maxPoolSize" value="20"/>
+    </bean>
+
+
+    <!-- 配置SqlSessionFactory对象 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 加载接口的sql映射文件-->
+        <property name="mapperLocations" value="classpath:/mysql/billDao.xml"/>
+    </bean>
+
+    <!--  Mapper 接口的扫描 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 配置 Mapper 接口所在包路径 -->
+        <property name="basePackage" value="com.pfms.dao"/>
+    </bean>
+
+    <!-- 开启 Spring 的 IOC 注解扫描 -->
+    <context:component-scan base-package="com.pfms"/>
+
+
+
+    <!-- -事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+</beans>
