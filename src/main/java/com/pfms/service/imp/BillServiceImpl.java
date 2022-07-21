@@ -22,4 +22,18 @@ public class BillServiceImpl implements IBillService {
         map.put("data",list);
         return map;
     }
+
+    public Map<String, Object> getMonthBill(String month) {
+        Map<String, Object>  map = new HashMap<String, Object>();
+        List<Map<String, Object>>  list =   billDao.getMonthBill(month);
+        map.put("data",list);
+        return map;
+    }
+
+    public Map<String, Object> getYearBill(String year) {
+        Map<String, Object>  map = new HashMap<String, Object>();
+        List<Map<String, Object>>  list =   billDao.getYearBill(year);
+        map.put("data",list);
+        return map;
+    }
 }

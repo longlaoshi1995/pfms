@@ -5,7 +5,10 @@ import java.util.Map;
 
 public interface BillDao {
 
-    List<Map<String, Object>> listYearBill(String year);
 
     List<Map<String, Object>> getCategory();
+
+    List<Map<String, Object>> getMonthBill(String month);
+
+    List<Map<String, Object>> getYearBill(String year);
 }

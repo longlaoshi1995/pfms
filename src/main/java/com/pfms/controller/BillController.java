@@ -31,4 +31,31 @@ public class BillController {
         return map;
     }
 
+    /**
+     * 获取某月账单
+     * */
+    @RequestMapping(method = RequestMethod.GET, value = "/getMonthBill")
+    @ResponseBody
+    public Map<String,Object>    getMonthBill(HttpServletRequest request){
+        Map<String,Object>  map = new HashMap<String, Object>();
+        String month = request.getParameter("month");
+        map = billService.getMonthBill(month);
+        return map;
+    }
+
+    /**
+     *
+    * 月份账单对比
+    * */
+    @RequestMapping(method = RequestMethod.GET, value = "/getYearBill")
+    @ResponseBody
+    public Map<String,Object>    getYearBill(HttpServletRequest request){
+        Map<String,Object>  map = new HashMap<String, Object>();
+        String year = request.getParameter("year");
+        map = billService.getYearBill(year);
+        return map;
+    }
+
+
+
 }

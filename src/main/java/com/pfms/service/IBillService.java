@@ -4,4 +4,8 @@ import java.util.Map;
 
 public interface IBillService {
     Map<String, Object> getCategory();
+
+    Map<String, Object> getMonthBill(String month);
+
+    Map<String, Object> getYearBill(String year);
 }
