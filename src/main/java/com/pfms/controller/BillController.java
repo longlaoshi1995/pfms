@@ -23,7 +23,7 @@ public class BillController {
     /**
     * 获取账单类别
     * */
-    @RequestMapping(method = RequestMethod.GET, value = "/getCategory")
+    @RequestMapping(method = RequestMethod.POST, value = "/getCategory")
     @ResponseBody
     public Map<String,Object>  getCategory(HttpServletRequest request){
         Map<String,Object>  map = new HashMap<String, Object>();

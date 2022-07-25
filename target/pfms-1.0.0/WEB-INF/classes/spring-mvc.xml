@@ -12,7 +12,7 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 扫描Controller所在的包 -->
-    <contenxt:component-scan base-package="com.pfms.controller"/>
+    <contenxt:component-scan base-package="com.pfms.controller,com.pfms.shiro"/>
 
 
     <!-- 注解驱动 -->
@@ -22,7 +22,7 @@
     <!-- 视图解析器:简化在Controller类编写的视图路径 -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 前缀 -->
-        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="prefix" value="/"/>
         <!-- 后缀 -->
         <property name="suffix" value=".html"/>
     </bean>
