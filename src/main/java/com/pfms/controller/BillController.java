@@ -47,7 +47,7 @@ public class BillController {
      *
     * 月份账单对比
     * */
-    @RequestMapping(method = RequestMethod.GET, value = "/getYearBill")
+    @RequestMapping(method = RequestMethod.POST, value = "/getYearBill")
     @ResponseBody
     public Map<String,Object>    getYearBill(HttpServletRequest request){
         Map<String,Object>  map = new HashMap<String, Object>();

@@ -6,6 +6,7 @@ import com.pfms.service.IBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,21 @@ public class BillServiceImpl implements IBillService {
     }
 
     public Map<String, Object> getYearBill(String year) {
-        Map<String, Object>  map = new HashMap<String, Object>();
-        List<Map<String, Object>>  list =   billDao.getYearBill(year);
-        map.put("data",list);
-        return map;
+        Map<String, Object> result = new HashMap<String, Object>();
+        List<Integer> listTime = new ArrayList<Integer>();
+        List<Double> listMoney = new ArrayList<Double>();
+        for(int i= 0; i < 12; i++){
+            listTime.add(i);
+            listMoney.add(0d);
+        }
+        List<Map<String, Object>> list =  billDao.getYearBill(year);
+        for(Map<String,Object> monthMoney : list){
+            int month = Integer.valueOf(monthMoney.get("month").toString().substring(4));
+            Double money = Double.valueOf(monthMoney.get("num").toString());
+            listMoney.set(month - 1, money);
+        }
+        result.put("monthList",listTime);
+        result.put("listMoney",listMoney);
+        return result;
     }
 }
